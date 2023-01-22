@@ -63,14 +63,13 @@ mutable struct StringLabel
 end
 
 function peek(L::StringLabel)::String
+    if L.next_label >= 10^L.pad
+        error("No more labels possible.")
+    end
     return L.prefix * string(L.next_label, pad = L.pad)
 end
 
 function next_label!(L::StringLabel)::String
-    if L.next_label >= 10^L.pad
-        error("No more labels possible.")
-    end
-
     out = peek(L)
     L.next_label += 1
     return out
