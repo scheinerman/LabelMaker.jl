@@ -1,7 +1,7 @@
 module LabelMaker
 
 import Base.peek
-export IntLabel, StringLabel, next!, peek
+export IntLabel, StringLabel, next_label!, peek
 
 """
     IntLabel(start::Int = 0)
@@ -18,12 +18,12 @@ mutable struct IntLabel
 end
 
 """
-    next!(L::IntLabel)::Int
-    next!(L::StringLabel)::String
+    next_label!(L::IntLabel)::Int
+    next_label!(L::StringLabel)::String
 
 Return a new, unused label. 
 """
-function next!(L::IntLabel)::Int
+function next_label!(L::IntLabel)::Int
     out = peek(L)
     L.next_label += 1
     return out
@@ -34,7 +34,7 @@ end
     peek(L::StringLabel)::String
 
 Return the next label to be created without advancing. User 
-should probably not use this method, but rather `next!(L)`.
+should probably not use this method, but rather `next_label!(L)`.
 """
 function peek(L::IntLabel)::Int
     L.next_label
@@ -60,7 +60,7 @@ function peek(L::StringLabel)::String
     return L.prefix * string(L.next_label, pad = L.pad)
 end
 
-function next!(L::StringLabel)::String
+function next_label!(L::StringLabel)::String
     if L.next_label >= 10^L.pad
         error("No more labels possible.")
     end
