@@ -28,7 +28,7 @@ julia> next_label!(L)
 The function `StringLabel` creates a new string label maker. This function takes three arguments:
 * `prefix` specifies a `String` that begins each label. Default is `label-`.
 * `padding` specifies the number of digits that following the prefix. Default is `6`.
-* `start` specifies the numerical value of the first label. Default is `0`. 
+* `start` specifies the numerical value of the first label (must be nonnegative). Default is `0`. 
 
 ```
 julia> L = StringLabel();
@@ -43,9 +43,13 @@ julia> next_label!(L)
 "label-000002"
 ```
 
-### Label exhaustion
+## Label Repetition
 
-Note that when the paddig is set to `6`, the largest label number is `999999`. Any further calls to `next_label!` results in an error. For example:
+Integer labels should be unique unless there are more than `2^64` calls to `next_label!`.
+
+For string labels the user should provide enough padding to ensure an adequate supply of labels. 
+
+For example, when the padding is set to `6`, the largest label number is `999999`. Any further calls to `next_label!` results in an error. For example:
 ```
 julia> L = StringLabel("short-", 1);
 

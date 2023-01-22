@@ -52,6 +52,12 @@ mutable struct StringLabel
     pad::Int
 
     function StringLabel(prefix::String = "label-", padding::Int = 6, start::Int = 0)
+        if padding < 1
+            error("Padding must be positive")
+        end
+        if start < 0
+            error("First label number must be nonnegative")
+        end
         new(start, prefix, padding)
     end
 end
