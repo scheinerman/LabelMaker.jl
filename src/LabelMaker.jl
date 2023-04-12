@@ -21,13 +21,15 @@ end
     next_label!(L::IntLabel)::Int
     next_label!(L::StringLabel)::String
 
-Return a new, unused label. 
+Return a new, unused label. A more convenient syntax for this is 
+`L()`.
 """
 function next_label!(L::IntLabel)::Int
     out = peek(L)
     L.next_label += 1
     return out
 end
+
 
 """
     peek(L::IntLabel)::Int
@@ -74,5 +76,16 @@ function next_label!(L::StringLabel)::String
     L.next_label += 1
     return out
 end
+
+
+
+"""
+    (L::IntLabel)()
+    (L::StringLabel)()
+    
+Return a new, unused label.
+"""
+(L::IntLabel)() = next_label!(L)
+(L::StringLabel)() = next_label!(L)
 
 end # module LabelMaker

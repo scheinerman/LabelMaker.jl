@@ -1,7 +1,7 @@
 name = "LabelMaker"
 uuid = "0ad98946-1a92-44a8-9954-56dccdc7fc9e"
 authors = ["Ed Scheinerman <ers@jhu.edu>"]
-version = "0.0.1"
+version = "0.0.2"
 
 [compat]
 julia = "1"
